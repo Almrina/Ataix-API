@@ -32,14 +32,20 @@ def main():
         print(f"Total number of trading pairs: {len(symbols)}")
     
     # 3. Fetching coin and token prices
-    prices = get_data("prices")
+        prices = get_data("prices")
+    print("\nRaw prices data:", prices)
+
     if prices:
         print("\nCoin and token prices:")
         for item in prices:
-            if isinstance(item, dict) and "symbol" in item and "price" in item:
-                print(f"{item['symbol']}: {item['price']}")
+            print("Entry:", item)
+            
+            if isinstance(item, dict) and "symbol" in item and "last" in item:
+                print(f"{item['symbol']}: {item['last']}")
             else:
-                print("Unexpected data format in prices:", item)
+                print("Skipping invalid entry:", item)
+    else:
+        print("Unexpected data format in prices")
 
 if __name__ == "__main__":
     main()
